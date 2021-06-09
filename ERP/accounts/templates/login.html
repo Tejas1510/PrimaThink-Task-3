@@ -1,0 +1,33 @@
+{% extends 'basic_layout.html' %}
+
+
+{% block title %} {% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid text-center" >
+<h2>Login</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <h1 class="h3 mb-3">Sign In</h1>
+    <label for="inputEmail" class="visually-hidden">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required
+        autofocus>
+    <label for="inputPassword" class="visually-hidden my-2">Password</label>
+    <input type="password" id="inputPassword" class="form-control my-2" name="password" placeholder="Password"
+        required>
+
+    <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Sign in</button>
+
+
+</form>
+
+</div>
+
+{% endblock %}
+
+{% block script_section %} {% endblock %}
