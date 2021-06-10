@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>{% block title %} {% endblock %}</title>
     {% block head %}
 {% endblock %}
@@ -20,14 +21,14 @@
         <div class="row">
                 <div class="main col-12 col-sm-3" style="background-color: #222; ">
                   
-                    <div class="sidebar left">
+                    <div class="sidebar left pb-3">
                       <div class="user-panel" style="text-align: center;">
                         <div class=" info ">
                           <h5 class="pb-2 text-center" style="text-align: center;">Admin Dashboard</h5>
                         </div>
                       </div>
                       <ul class="list-sidebar bg-defoult">
-                        <li> <a href="{% url 'home' %}" data-toggle="collapse" data-target="#dashboard" class="collapsed active" > <i class="fa fa-th-large"></i> <span class="nav-label"> Dashboards </span></a>
+                        <li> <a href="{% url 'home' %}" data-toggle="collapse" data-target="#dashboard" class="collapsed active" > <i class="fa fa-th-large"></i> <span class="nav-label"> My Dashboard </span></a>
                       </li>
                       <!-- <li> <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Teacher</span></a> </li> -->
                       <li> <a href="#" data-toggle="collapse" data-target="#teachers" class="collapsed active" > <i class="fa fa-bar-chart-o"></i> <span class="nav-label">Teacher</span> <span class="fa fa-chevron-down pull-right"></span> </a>
@@ -42,7 +43,7 @@
                             <li class="inner-list"><a href="{% url 'view_students' %}">View Students</a></li>
                         </ul>
                       </li>
-                      <li> <a href="#" data-toggle="collapse" data-target="#librarian" class="collapsed active" > <i class="fa fa-users"></i> <span class="nav-label">Librarian</span> <span class="fa fa-chevron-down pull-right"></span> </a>
+                      <li> <a href="#" data-toggle="collapse" data-target="#librarian" class="collapsed active" > <i class="fa fa-book"></i> <span class="nav-label">Librarian</span> <span class="fa fa-chevron-down pull-right"></span> </a>
                         <ul class="sub-menu collapse" id="librarian">
                             <li class="inner-list"><a href="{% url 'add_librarians' %}">Add Librarian</a></li>
                             <li class="inner-list"><a href="{% url 'view_librarians' %}">View Librarian</a></li>
@@ -50,7 +51,12 @@
                       </li>
                     <li> <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Attendance</span></a> </li>
                     <li> <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Time Table</span></a> </li>
-                    <li> <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Events</span></a> </li>
+                    <li> <a href="#" data-toggle="collapse" data-target="#event" class="collapsed active" > <i class="fa fa-calendar"></i> <span class="nav-label">Events</span> <span class="fa fa-chevron-down pull-right"></span> </a>
+                      <ul class="sub-menu collapse" id="event">
+                          <li class="inner-list"><a href="{% url 'add_librarians' %}">Add Event</a></li>
+                          <li class="inner-list"><a href="{% url 'view_librarians' %}">View Events</a></li>
+                      </ul>
+                    </li>
                    
                 
 
@@ -66,6 +72,7 @@
         </div>
     </div>
     {% block script_section %} 
+
 {% endblock %}
 </body>
 </html>

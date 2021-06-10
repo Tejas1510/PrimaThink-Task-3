@@ -5,11 +5,15 @@
 {% block title %} {% endblock %}
 
 {% block head %}
+
+<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<link href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css" rel="stylesheet" />
 <style>
-    .modal-header{
-        background: linear-gradient(to right, #373b44, #4286f4) !important;
-        color: #fff;
-    }
+  .modal-header{
+      background: linear-gradient(to right, #373b44, #4286f4) !important;
+      color: #fff;
+  }
 </style>
 {% endblock %}
 
@@ -29,7 +33,7 @@ aria-hidden="true">
     <form action="admin-panel.php" method="POST">
       <div class="modal-body">
         <input type="hidden" name="idEdit" id="idEdit">
-        <div class="form-group">
+                <div class="form-group">
                     <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
                 </div>
                 <div class="form-group">
@@ -39,15 +43,16 @@ aria-hidden="true">
                     <input type="tel" class="form-control" id="mobileEdit" name="mobileEdit" >
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="desgEdit" name="desgEdit">
+                    <input type="text" class="form-control" id="addressEdit" name="addressEdit">
+                </div>
+                <label class="ml-2">DOB: </label>
+                <div class="form-group">
+                  <input type="date" class="form-control" id="dobEdit" name="dobEdit">
                 </div>
                 <div class="form-group">
                     <input type="number" class="form-control" id="salaryEdit" name="salaryEdit">
                 </div>
-                <div class="form-group">
-                    <label class="ml-2">Hiring Date</label>
-                    <input type="date" class="form-control" id="hdateEdit" name="hdateEdit">
-                </div> 
+                 
       </div>
       <div class="modal-footer d-block mr-auto">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -65,8 +70,8 @@ aria-hidden="true">
           <i class="fa fa-edit"></i> Student List
       </div>
       {% if students %}
-      <div class="card-body">
-        <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap my-3" style="width:100%">
+      <div class="card-body text-center pl-5">
+        <table id="myTable" class="table dt-responsive" cellspacing="1" width="100%">
           <thead class="bg-success text-white text-center">
               <tr>
                   <th>Sr no.</th>
@@ -108,64 +113,77 @@ aria-hidden="true">
 
 
 
-  
- 
-        
-        
-    
-    
-
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-  <script>
+
+
+<script src="https://datatables.net/download/build/nightly/jquery.dataTables.min.js?_=acea6f3829f8033855d883c25444fdf0"></script>
+<script src="https://cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+
+<script>
     $(document).ready(function () {
-      $('#myTable').DataTable();
 
-    });
-  </script>
+        $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+          //console.log( 'show tab' );
+            $($.fn.dataTable.tables(true)).DataTable()
+              .columns.adjust()
+              .responsive.recalc();
+        });
+     
 
-    <script>
-    edits = document.getElementsByClassName('edit');
-    Array.from(edits).forEach((element) => {
-      element.addEventListener("click", (e) => {
-        console.log("edit");
-        console.log(e.target.parentNode.value);
-        console.log(e.target.parentNode.parentNode.parentNode);
-        tr = e.target.parentNode.parentNode.parentNode;
-    
-        name = tr.getElementsByTagName("td")[0].innerText;
-        email = tr.getElementsByTagName("td")[1].innerText;
-        mobile = tr.getElementsByTagName("td")[5].innerText;
-        desg = tr.getElementsByTagName("td")[2].innerText;
-        salary = tr.getElementsByTagName("td")[3].innerText;
-        hdate = tr.getElementsByTagName("td")[4].innerText;
-        nameEdit.value = name;
-        emailEdit.value = email;
-        mobileEdit.value=mobile;
-        desgEdit.value=desg;
-        salaryEdit.value=salary;
-        hdateEdit.value=hdate;
-        idEdit.value = e.target.parentNode.value;
-        $('#editModal').modal('toggle');
-      })
+        $("#myTable").dataTable({
+          "bAutoWidth": false
+        });
+       
+        setActiveTab();
+        $($.fn.dataTable.tables(true)).DataTable()
+              .columns.adjust()
+              .responsive.recalc();
+
+              
+            
+});
+</script>
+
+<script>
+  edits = document.getElementsByClassName('edit');
+  Array.from(edits).forEach((element) => {
+    element.addEventListener("click", (e) => {
+      tr = e.target.parentNode.parentNode.parentNode;
+      name = tr.getElementsByTagName("td")[1].innerText;
+      email = tr.getElementsByTagName("td")[2].innerText;
+      mobile = tr.getElementsByTagName("td")[3].innerText;
+      address = tr.getElementsByTagName("td")[4].innerText;
+      salary = tr.getElementsByTagName("td")[6].innerText;
+      dob = tr.getElementsByTagName("td")[5].innerText;
+      nameEdit.value = name;
+      emailEdit.value = email;
+      mobileEdit.value=mobile;
+      addressEdit.value=address;
+      salaryEdit.value=salary;
+      dobEdit.value=dob;
+      idEdit.value = e.target.parentNode.value;
+      $('#editModal').modal('toggle');
     })
-   
-  </script> 
+  })
+ 
+</script> 
+    
 
 
 
-</div>
 
 {% endblock %}
 
-{% block script_section %} 
+{% block script_section %}
 {% endblock %}

@@ -6,7 +6,7 @@ from .forms import CustomUserCreationForm
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html', {})
+    return render(request, 'index.html', {})
     
 def user_login(request):
     if request.method == "POST":
