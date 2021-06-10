@@ -62,9 +62,9 @@ aria-hidden="true">
 <div class="animated fadeIn">
   <div class="card my-2">
       <div class="card-header bg-primary text-white display-5 ">
-          <i class="fa fa-edit"></i> Student List
+          <i class="fa fa-edit"></i> Teacher List
       </div>
-      {% if students %}
+      {% if teachers %}
       <div class="card-body">
         <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap my-3" style="width:100%">
           <thead class="bg-success text-white text-center">
@@ -75,21 +75,23 @@ aria-hidden="true">
                   <th>Mobile No.</th>
                   <th>Address</th>
                   <th>DOB</th>
-                  <th>Fees Paid</th>
+                  <th>Salary</th>
+                  <th>Qualification</th>
                   <th>Action</th>
               </tr>
           </thead>
           <tbody>
-              {% for student in students %}
+              {% for teacher in teachers %}
               <tr>
                   <td>{{forloop.counter}}</td>
-                  <td>{{student.name}}</td>
-                  <td>{{student.user.email}}</td>
-                  <td>{{student.phone_number}}</td>
-                  <td>{{student.address}}</td>
-                  <td>{{student.date_of_birth}}</td>
-                  <td>{{student.fees_paid}}</td>
-                  <td class="text-center"> <a class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_student/{{student.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
+                  <td>{{teacher.name}}</td>
+                  <td>{{teacher.user.email}}</td>
+                  <td>{{teacher.phone_number}}</td>
+                  <td>{{teacher.address}}</td>
+                  <td>{{teacher.date_of_birth}}</td>
+                  <td>{{teacher.salary}}</td>
+                  <td>{{teacher.qualification}}</td>
+                  <td class="text-center"> <a class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_teacher/{{teacher.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
                   </tr>
              {% endfor %}
           
@@ -100,7 +102,7 @@ aria-hidden="true">
       </div>
       {% else %}
       <div class="card-body">
-          <h3>No Student Found</h3>
+          <h3>No Teacher Found</h3>
       </div>
       {% endif %}
   </div>
