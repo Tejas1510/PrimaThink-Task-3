@@ -33,13 +33,19 @@
                       <li> <a href="#" data-toggle="collapse" data-target="#teachers" class="collapsed active" > <i class="fa fa-bar-chart-o"></i> <span class="nav-label">Teacher</span> <span class="fa fa-chevron-down pull-right"></span> </a>
                         <ul class="sub-menu collapse" id="teachers">
                             <li class="inner-list"><a href="{% url 'add_teachers' %}">Add Teacher</a></li>
-                            <li class="inner-list"><a href="#">View Teacher</a></li>
+                            <li class="inner-list"><a href="{% url 'view_teachers' %}">View Teacher</a></li>
                         </ul>
                       </li>
                       <li> <a href="#" data-toggle="collapse" data-target="#student" class="collapsed active" > <i class="fa fa-users"></i> <span class="nav-label">Student</span> <span class="fa fa-chevron-down pull-right"></span> </a>
                         <ul class="sub-menu collapse" id="student">
                             <li class="inner-list"><a href="{% url 'add_students' %}">Add Students</a></li>
                             <li class="inner-list"><a href="{% url 'view_students' %}">View Students</a></li>
+                        </ul>
+                      </li>
+                      <li> <a href="#" data-toggle="collapse" data-target="#librarian" class="collapsed active" > <i class="fa fa-users"></i> <span class="nav-label">Librarian</span> <span class="fa fa-chevron-down pull-right"></span> </a>
+                        <ul class="sub-menu collapse" id="librarian">
+                            <li class="inner-list"><a href="{% url 'add_librarians' %}">Add Librarian</a></li>
+                            <li class="inner-list"><a href="{% url 'view_librarians' %}">View Librarian</a></li>
                         </ul>
                       </li>
                     <li> <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Attendance</span></a> </li>

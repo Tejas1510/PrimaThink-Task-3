@@ -18,8 +18,8 @@ class UserManager(BaseUserManager):
         user_obj.active = is_active
         user_obj.admin_user = admin_user
         user_obj.student_user = admin_user
-        user_obj.teacher_user = admin_user
-        user_obj.librarian_user = admin_user
+        user_obj.teacher_user = teacher_user
+        user_obj.librarian_user = librarian_user
         user_obj.save(using=self._db)
         return user_obj
 
