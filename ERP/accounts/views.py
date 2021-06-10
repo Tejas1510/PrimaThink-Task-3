@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
-from .models import Student,Teacher,Librarian,User
+from .models import Student,Teacher,Librarian,User,Event
 from .forms import CustomUserCreationForm
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
 # Create your views here.
 def home(request):
@@ -127,3 +128,42 @@ def delete_librarian(request,id):
     librarian=Librarian.objects.get(profile_id=id)
     librarian.user.delete()
     return redirect('view_librarians')
+
+
+################  librarian Views ############################
+
+def view_events(request):
+    event=Event.objects.all()
+    blogposts=[]
+
+    paginator=Paginator(event,3)
+    page=request.GET.get('page')
+    try:
+        events=paginator.get_page(page)
+
+    except PageNotAnInteger:
+        events=paginator.page(1)
+    except EmptyPage:
+        events=paginator.page(paginator.num_pages)
+    return render(request, 'view_event.html', {'events':events})
+
+def add_events(request):
+    if request.method == "POST":
+        name=request.POST.get('name')
+        description=request.POST.get('description')
+        date=request.POST.get('date')
+        time=request.POST.get('time')
+        image=request.POST.get('image')
+        url=request.POST.get('url')
+           
+        event = Event(name=name,description=description,date=date,time=time,image=image,url=url)
+        event.save()
+        return redirect('view_events')
+    else:
+        return render(request, 'add_event.html')
+
+def delete_event(request,id):
+    event=Event.objects.all()
+    event=Event.objects.get(profile_id=id)
+    event.user.delete()
+    return redirect('view_events')

@@ -19,6 +19,10 @@ urlpatterns = [
     path('add_librarians',views.add_librarians,name='add_librarians'),
     path('delete_librarian/<int:id>',views.delete_librarian,name='delete_librarian'),
 
+    # Event
+    path('view_events',views.view_events,name='view_events'),
+    path('add_events',views.add_events,name='add_events'),
+    path('delete_event/<int:id>',views.delete_event,name='delete_event'),
+    
     # path('library',views.library,name='library'),
-     # path('events',views.events,name='events'),
 ]

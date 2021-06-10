@@ -145,6 +145,9 @@ class Event(models.Model):
     name = models.CharField(max_length=60,default='')    
     description = models.CharField(max_length=50,default='')
     date = models.DateField(null=True)
+    time=models.TimeField(null=True)
+    image=models.CharField(max_length=2000,null=True)
+    url=models.CharField(max_length=250,default='')
 
     def __str__(self):
         return self.name
