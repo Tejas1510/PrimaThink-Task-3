@@ -6,15 +6,6 @@
 
 {% block head %}
 
-<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet"/>
-<link href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css" rel="stylesheet" />
-<style>
-  .modal-header{
-      background: linear-gradient(to right, #373b44, #4286f4) !important;
-      color: #fff;
-  }
-</style>
 {% endblock %}
 
 {% block body %}
@@ -29,7 +20,8 @@ aria-hidden="true">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <form action="admin-panel.php" method="POST">
+    <form action="" method="POST" id="event_id">
+      {% csrf_token %}
       <div class="modal-body">
         <input type="hidden" name="idEdit" id="idEdit">
                 <div class="form-group">
@@ -65,7 +57,7 @@ aria-hidden="true">
 </div>
 
 <div class="container-fluid bg-gray mx-auto">
-  <h1 class="display-3 text-center my-4 text-white shadow p-2" style=" font-weight:bold;background: linear-gradient(to right, #37443e, #4286f4) !important;">Events</h1>
+  <h1 class="display-4 text-center my-4 text-white shadow p-2" style=" font-weight:bold;background: linear-gradient(to right, #37443e, #4286f4) !important;">Events</h1>
   <div class="row gap-y m-3 my-5">
       {% for i in events %}
       <div class="col-12 col-sm-4">
@@ -87,7 +79,7 @@ aria-hidden="true">
             <a href="{{i.url}}" class="btn btn-primary">Read more</a>
              </div>
              <div class="col-6 my-2 text-center">
-              <a class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_event/{{event.event_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button> 
+              <a onclick="eventId({{i.event_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_event/{{event.event_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button> 
                </div>
             </div>
           </div>
@@ -141,6 +133,9 @@ aria-hidden="true">
     })
   })
  
+  function eventId(id){
+   document.getElementById('event_id').action='/edit_event/'+id;
+ }
 </script>
           
           
