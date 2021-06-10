@@ -1,0 +1,13 @@
+.mainForm{
+    width: 35%;
+    justify-content: center;
+}
+
+body{
+    align-items: center;
+    justify-items: center;
+}
+
+.mainContainer{
+    max-width: 50%;
+}

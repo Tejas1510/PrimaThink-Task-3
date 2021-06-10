@@ -72,9 +72,9 @@ class User(AbstractBaseUser):
     def get_short_name(self):
         return self.email
 
-    def has_perm(sel, perm, obj=None):
+    def has_perm(self, perm, obj=None):
         return True
-    def has_module_perms(sel, app_label):
+    def has_module_perms(self, app_label):
         return True
 
     @property
@@ -148,3 +148,4 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+

@@ -1,0 +1,54 @@
+*{
+    padding:0px;
+    margin:0px;
+}
+.jumbotron{
+    transition: background-color 300ms ease 0ms,background-image 300ms ease 0ms;
+    background-color: #F3F6F9!important;
+}
+ .headerHeading{
+    font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: #473737!important;
+    
+}
+.headerPara{
+    color: #474747!important;
+    line-height: 150%;
+} 
+.btn-primary-1{
+    color: #ffffff!important;
+    border-width: 0px!important;
+    border-color: #ffffff;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    font-size: 13px;
+    font-family: 'Ubuntu',Helvetica,Arial,Lucida,sans-serif!important;
+    font-weight: 700!important;
+    text-transform: uppercase!important;
+    background-color: #f6851f;
+    padding: 15px;
+}
+.secondContainer{
+    width: 100%;
+    transition: background-color 300ms ease 0ms,background-image 300ms ease 0ms;
+}
+
+.foot li{
+    border-bottom:1px solid grey;
+    margin-top: 5px;
+    padding:8px;
+}
+.foot li a{
+    color:white;
+}
+H5{
+    color:orange;
+    padding:8px;
+    font-weight: bold;
+}
+H6{
+    color:orange;
+    font-weight: bold;
+}

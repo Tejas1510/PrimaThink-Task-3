@@ -1,15 +1,55 @@
-{% extends 'basic_layout.html' %}
-
-
-{% block title %} {% endblock %}
+{% extends 'admin_dashboard.html' %}
+{% block title %}Admin Dashboard{% endblock %}
 
 {% block head %}
+
 {% endblock %}
 
 {% block body %}
+<div class="row">
+  <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter primary">
+          <i class="fa fa-university"></i>
+          <span class="count-numbers">12</span>
+          <span class="count-name">Departments</span>
+        </div>
+  </div>
+  <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter danger">
+        <i class="fa fa-users"></i>
+        <span class="count-numbers">2000</span>
+        <span class="count-name">Students</span>
+      </div>
+    </div>
 
-<div class="container-fluid text-center" >
-<h2>Home, {{ request.user.email }}</h2>
+    <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter success">
+        <i class="fa fa-user"></i>
+        <span class="count-numbers">25</span>
+        <span class="count-name">Teachers</span>
+      </div>
+    </div>
+    <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter info" style="background: linear-gradient(45deg,#FF5370,#ff869a)">
+        <i class="fa fa-calendar"></i>
+        <span class="count-numbers">5</span>
+        <span class="count-name">Events</span>
+      </div>
+    </div>
+    <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter info" style="background: linear-gradient(45deg,#4099ff,#73b4ff);;">
+        <i class="fa fa-users"></i>
+        <span class="count-numbers">Attendance</span>
+        <span class="count-name">Module</span>
+      </div>
+    </div>
+    <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter info" style="background: linear-gradient(45deg,#FFB64D,#ffcb80);">
+        <i class="fa fa-book"></i>
+        <span class="count-numbers">Today</span>
+        <span class="count-name">TimeTable</span>
+      </div>
+    </div>
 </div>
 
 {% endblock %}

@@ -9,22 +9,30 @@
 {% block body %}
 
 <div class="container-fluid text-center" >
-<h2>Login</h2>
 
-<form method="POST">
-    {% csrf_token %}
-    <h1 class="h3 mb-3">Sign In</h1>
-    <label for="inputEmail" class="visually-hidden">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required
-        autofocus>
-    <label for="inputPassword" class="visually-hidden my-2">Password</label>
-    <input type="password" id="inputPassword" class="form-control my-2" name="password" placeholder="Password"
-        required>
+    <div class="container my-5 col-md-6 offset-md-3">
+        <div class="card">
+        <div class="card-body">
+        <h1 class="card-title text-center">Login</h1>
+        <form method="post">
+            {% csrf_token %}
+    
+             <div class="form-group">
+                 <label for="inputEmail">Email</label>
+            <input class="form-control" type="email" placeholder="Enter Email-id" id="inputEmail" name="email" autofocus required>
+             </div>
+             <div class="form-group">
+                <label for="inputPassword">Password</label>
+             <input class="form-control" type="password" placeholder="Enter Password" id="inputPassword" name="password" required>
+             </div>
+    
+    
+            <button class="btn btn-primary btn-block" type="submit"><strong>Login</strong></button>
+        </form>
+        </div>
+         </div>
+    </div>
 
-    <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Sign in</button>
-
-
-</form>
 
 </div>
 
