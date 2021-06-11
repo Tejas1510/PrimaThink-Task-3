@@ -30,17 +30,16 @@ aria-hidden="true">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <form action="admin-panel.php" method="POST">
+    <form action="" method="POST" id="stud_id">
+      {% csrf_token %}
       <div class="modal-body">
         <input type="hidden" name="idEdit" id="idEdit">
                 <div class="form-group">
                     <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
                 </div>
+               
                 <div class="form-group">
-                    <input type="email" class="form-control" id="emailEdit" name="emailEdit" >
-                </div>
-                <div class="form-group">
-                    <input type="tel" class="form-control" id="mobileEdit" name="mobileEdit" >
+                    <input type="text" class="form-control" id="mobileEdit" name="mobileEdit" >
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="addressEdit" name="addressEdit">
@@ -49,9 +48,24 @@ aria-hidden="true">
                 <div class="form-group">
                   <input type="date" class="form-control" id="dobEdit" name="dobEdit">
                 </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="salaryEdit" name="salaryEdit">
+                <label>Gender</label>
+                <div class="form-check form-check-inline mt-2 ml-4">
+                  <input class="form-check-input" type="radio" name="genderEdit" id="genderEdit" value="male">
+                  <label class="form-check-label" for="genderEdit" style="padding-left: 0px;">Male</label>
                 </div>
+                <div class="form-check form-check-inline ml-2">
+                  <input class="form-check-input" type="radio" name="genderEdit" id="genderEdit" value="female">
+                  <label class="form-check-label" for="genderEdit" style="padding-left: 0px;">Female</label>
+                </div><br>
+                <label>Fees Paid/Unpaid?</label>
+                <div class="form-check form-check-inline mt-2 ml-4">
+                    <input class="form-check-input" type="radio" name="feeEdit" id="feeEdit" value="paid">
+                    <label class="form-check-label" for="feeEdit" style="padding-left: 0px;">Paid</label>
+                  </div>
+                  <div class="form-check form-check-inline ml-2">
+                    <input class="form-check-input" type="radio" name="feeEdit" id="feeEdit" value="unpaid">
+                    <label class="form-check-label" for="feeEdit" style="padding-left: 0px;">UnPaid</label>
+                  </div>
                  
       </div>
       <div class="modal-footer d-block mr-auto">
@@ -80,6 +94,7 @@ aria-hidden="true">
                   <th>Mobile No.</th>
                   <th>Address</th>
                   <th>DOB</th>
+                  <th>Gender</th>
                   <th>Fees Paid</th>
                   <th>Action</th>
               </tr>
@@ -93,8 +108,10 @@ aria-hidden="true">
                   <td>{{student.phone_number}}</td>
                   <td>{{student.address}}</td>
                   <td>{{student.date_of_birth}}</td>
+                  <td>{{student.gender}}</td>
                   <td>{{student.fees_paid}}</td>
-                  <td class="text-center"> <a class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_student/{{student.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
+                  <td class="text-center"> <a onclick="studentId({{student.profile_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_student/{{student.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
+                 
                   </tr>
              {% endfor %}
           
@@ -161,27 +178,35 @@ aria-hidden="true">
     element.addEventListener("click", (e) => {
       tr = e.target.parentNode.parentNode.parentNode;
       name = tr.getElementsByTagName("td")[1].innerText;
-      email = tr.getElementsByTagName("td")[2].innerText;
+      // email = tr.getElementsByTagName("td")[2].innerText;
       mobile = tr.getElementsByTagName("td")[3].innerText;
       address = tr.getElementsByTagName("td")[4].innerText;
-      salary = tr.getElementsByTagName("td")[6].innerText;
+      // fees = tr.getElementsByTagName("td")[7].value;
+      // gender = tr.getElementsByTagName("td")[6].value;
       dob = tr.getElementsByTagName("td")[5].innerText;
+      
+    
       nameEdit.value = name;
-      emailEdit.value = email;
+      // emailEdit.value = email;
       mobileEdit.value=mobile;
       addressEdit.value=address;
-      salaryEdit.value=salary;
+      // feeEdit.value=fees;
+      // genderEdit.value=gender;
       dobEdit.value=dob;
+
       idEdit.value = e.target.parentNode.value;
+     
       $('#editModal').modal('toggle');
     })
   })
+
+  function studentId(id){
+   
+    document.getElementById('stud_id').action='/edit_student/'+id;
+  }
  
 </script> 
     
-
-
-
 
 {% endblock %}
 

@@ -1,0 +1,146 @@
+
+{% extends 'admin_dashboard.html' %}
+
+
+{% block title %} {% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="editModalLabel">Edit</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <form action="" method="POST" id="event_id">
+      {% csrf_token %}
+      <div class="modal-body">
+        <input type="hidden" name="idEdit" id="idEdit">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="descriptionEdit" name="descriptionEdit" >
+                </div>
+                <label class="ml-2">Event Date: </label>
+                <div class="form-group">
+                    <input type="date" class="form-control" id="dateEdit" name="dateEdit">
+                </div>
+                <div class="form-group">
+                    <input type="time" class="form-control" id="timeEdit" name="timeEdit">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="imageEdit" name="imageEdit" >
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="urlEdit" name="urlEdit" >
+            </div>
+                
+               
+                 
+      </div>
+      <div class="modal-footer d-block mr-auto">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<div class="container-fluid bg-gray mx-auto">
+  <h1 class="display-4 text-center my-4 text-white shadow p-2" style=" font-weight:bold;background: linear-gradient(to right, #37443e, #4286f4) !important;">Events</h1>
+  <div class="row gap-y m-3 my-5">
+      {% for i in events %}
+      <div class="col-12 col-sm-4">
+        <article class="card animated fadeInLeft my-2" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);">
+          <img class="card-img-top img-responsive" src="{{i.image}}" alt="Image here" style="height: 180px;" />
+          <div class="card-block">
+            <h4 class="card-title" >{{i.name}}</h4>
+            <div class="row">
+              <div class="col-6">
+                <h6 class="text-muted date">{{i.date}}</h6>
+             </div>
+             <div class="col-6 text-center">
+             <h6 class="text-muted"> Time: <span class="time">{{i.time}}</span></h6>
+               </div>
+            </div>
+            <p class="card-text">{{i.description}}</p>
+            <div class="row my-2">
+              <div class="col-6">
+            <a href="{{i.url}}" class="btn btn-primary">Read more</a>
+             </div>
+             <div class="col-6 my-2 text-center">
+              <a onclick="eventId({{i.event_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_event/{{event.event_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button> 
+               </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+      <p class="text-center">Sorry, No Events Posted yet!!</p>
+      {% endfor %}
+          </div>
+      
+
+
+  <nav class="flexbox mt-30 text-center">
+      {% if events.has_previous %}
+      <a href="?page={{events.previous_page_number}}" class="btn btn-white">
+          < Previous</a>
+              {% else %}
+              <a href="#" class="btn btn-white disabled">
+                  < Previous</a>
+                      {% endif %}
+
+                      {% if events.has_next %}
+                      <a href="?page={{events.next_page_number}}" class="btn btn-white">Next ></a>
+                      {% else %}
+                      <a href="#" class="btn btn-white disabled"> Next ></a>
+                      {% endif %}
+  </nav>
+</div>
+
+<script>
+  edits = document.getElementsByClassName('edit');
+  Array.from(edits).forEach((element) => {
+    element.addEventListener("click", (e) => {
+      // console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("a")[0].href);
+      article = e.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+      name = article.getElementsByClassName("card-title")[0].outerText;
+      description = article.getElementsByClassName("card-text")[0].outerText;
+      date = article.getElementsByClassName("date")[0].outerText;
+      time = article.getElementsByClassName("time")[0].outerText;
+      image = article.getElementsByClassName("card-img-top")[0].currentSrc;
+      url = article.getElementsByTagName("a")[0].href;
+    
+      nameEdit.value = name;
+      descriptionEdit.value = description;
+      dateEdit.value=date;
+      timeEdit.value=time;
+      imageEdit.value=image;
+      urlEdit.value=url;
+      idEdit.value = e.target.parentNode.value;
+      $('#editModal').modal('toggle');
+    })
+  })
+ 
+  function eventId(id){
+   document.getElementById('event_id').action='/edit_event/'+id;
+ }
+</script>
+          
+          
+
+                {% endblock %}
+
+                {% block script_section %}
+                {% endblock %}

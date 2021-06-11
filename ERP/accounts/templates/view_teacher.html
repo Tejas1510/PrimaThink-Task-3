@@ -5,6 +5,9 @@
 {% block title %} {% endblock %}
 
 {% block head %}
+<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<link href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css" rel="stylesheet" />
 <style>
     .modal-header{
         background: linear-gradient(to right, #373b44, #4286f4) !important;
@@ -26,28 +29,32 @@ aria-hidden="true">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <form action="admin-panel.php" method="POST">
+    <form action="" method="POST" id="teacher_id">
+      {% csrf_token %}
       <div class="modal-body">
         <input type="hidden" name="idEdit" id="idEdit">
-        <div class="form-group">
-                    <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
-                </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" id="emailEdit" name="emailEdit" >
-                </div>
-                <div class="form-group">
-                    <input type="tel" class="form-control" id="mobileEdit" name="mobileEdit" >
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="desgEdit" name="desgEdit">
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="salaryEdit" name="salaryEdit">
-                </div>
-                <div class="form-group">
-                    <label class="ml-2">Hiring Date</label>
-                    <input type="date" class="form-control" id="hdateEdit" name="hdateEdit">
-                </div> 
+                  <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
+              </div>
+              <div class="form-group">
+                  <input type="email" class="form-control" id="emailEdit" name="emailEdit" >
+              </div>
+              <div class="form-group">
+                  <input type="tel" class="form-control" id="mobileEdit" name="mobileEdit" >
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" id="addressEdit" name="addressEdit">
+              </div>
+              <label class="ml-2">DOB: </label>
+              <div class="form-group">
+                <input type="date" class="form-control" id="dobEdit" name="dobEdit">
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" id="salaryEdit" name="salaryEdit">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="qualificationEdit" name="qualificationEdit">
+            </div> 
       </div>
       <div class="modal-footer d-block mr-auto">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -91,7 +98,7 @@ aria-hidden="true">
                   <td>{{teacher.date_of_birth}}</td>
                   <td>{{teacher.salary}}</td>
                   <td>{{teacher.qualification}}</td>
-                  <td class="text-center"> <a class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_teacher/{{teacher.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
+                  <td class="text-center"> <a onclick="teacherId({{teacher.profile_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_teacher/{{teacher.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
                   </tr>
              {% endfor %}
           
@@ -160,18 +167,24 @@ element.addEventListener("click", (e) => {
   mobile = tr.getElementsByTagName("td")[3].innerText;
   address = tr.getElementsByTagName("td")[4].innerText;
   salary = tr.getElementsByTagName("td")[6].innerText;
+  qualification = tr.getElementsByTagName("td")[7].innerText;
   dob = tr.getElementsByTagName("td")[5].innerText;
   nameEdit.value = name;
   emailEdit.value = email;
   mobileEdit.value=mobile;
   addressEdit.value=address;
   salaryEdit.value=salary;
+  qualificationEdit.value=qualification;
   dobEdit.value=dob;
   idEdit.value = e.target.parentNode.value;
   $('#editModal').modal('toggle');
 })
 })
 
+function teacherId(id){
+   
+   document.getElementById('teacher_id').action='/edit_teacher/'+id;
+ }
 </script> 
 
 
