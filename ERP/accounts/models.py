@@ -151,3 +151,12 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+class Attendance(models.Model):
+    attendance_id = models.AutoField(primary_key=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
+    attend = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.student.name

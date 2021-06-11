@@ -35,6 +35,7 @@ urlpatterns = [
     # Attendance
     path('view_attendance',views.view_attendance,name='view_attendance'),
     path('add_attendance',views.add_attendance,name='add_attendance'),
+    path('edit_attendance',views.edit_attendance,name='edit_attendance'),
     # path('delete_event/<int:id>',views.delete_event,name='delete_event'),
     # path('edit_event/<int:id>',views.edit_event,name='edit_event'),
     

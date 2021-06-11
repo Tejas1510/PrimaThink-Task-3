@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from .models import Student, Teacher, Librarian, User, Event
+from .models import Student, Teacher, Librarian, User, Event, Attendance
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
@@ -331,8 +331,12 @@ def view_timetable(request):
 def view_attendance(request):
     if user_validator(request) != "ADMIN":
         return render(request, 'entry_restricted.html', {})
-    students = Student.objects.all()
-    return render(request, 'view_attendance.html', {'students': students})
+    if request.method == "POST":
+        date = request.POST.get('date')
+        attendance = Attendance.objects.filter(date=date)        
+        return render(request, 'view_attendance.html', {'attendance': attendance, 'date': date})
+    else:
+        return render(request, 'view_attendance.html', {})
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -341,8 +345,38 @@ def add_attendance(request):
     if user_validator(request) != "ADMIN":
         return render(request, 'entry_restricted.html', {})
     if request.method == "POST":
-        name = request.POST.get('name')
+
+        date = request.POST.get('date')
+        studentList = Student.objects.all()
+        if len(Attendance.objects.filter(date=date)) == 0:
+            for i in studentList:            
+                attendance = request.POST.get('attend' + str(i.profile_id))
+                x = None
+                if attendance.lower() == "present":
+                    x = Attendance(student=i, date=date, attend=True)
+                else:
+                    x = Attendance(student=i, date=date, attend=False)
+                x.save()
+        else:
+            return redirect('add_attendance')
         return redirect('view_attendance')
     else:
         students = Student.objects.all()
         return render(request, 'add_attendance.html', {'students': students})
+
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
+def edit_attendance(request):
+    if request.method == "POST":
+        date = request.POST.get('dateEdit')
+        email = request.POST.get('emailEdit')
+        attendance = request.POST.get('attendEdit')
+        record = list(Attendance.objects.filter(student__user__email__contains=email, date=date))[0]
+        if attendance.lower() == "present":
+            record.attend = True
+        else:
+            record.attend = False
+        record.save()
+    return redirect('view_attendance')

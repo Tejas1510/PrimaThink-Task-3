@@ -35,6 +35,9 @@ aria-hidden="true">
       <div class="modal-body">
         <input type="hidden" name="idEdit" id="idEdit">
                 <div class="form-group">
+                  <input type="date" class="form-control" id="dateEdit" value={{date}} name="dateEdit" readonly>
+                </div>
+                <div class="form-group">
                     <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
                 </div>
                
@@ -48,8 +51,8 @@ aria-hidden="true">
                   <label class="form-check-label" for="attendEdit" style="padding-left: 0px;">Present</label>
                 </div>
                 <div class="form-check form-check-inline ml-2">
-                  <input class="form-check-input" type="radio" name="attendEdit" id="attendEdit" value="absent">
-                  <label class="form-check-label" for="attendEdit" style="padding-left: 0px;">Absent</label>
+                  <input class="form-check-input" type="radio" name="attendEdit" id="attendEditAbsent" value="absent">
+                  <label class="form-check-label" for="attendEditAbsent" style="padding-left: 0px;">Absent</label>
                 </div><br>
              
                  
@@ -69,47 +72,49 @@ aria-hidden="true">
       <div class="card-header bg-primary text-white display-5 ">
           <i class="fa fa-edit"></i> View Attendance
       </div>
-      {% if students %}
       <div class="card-body pl-5">
         <form action="" method="POST">
             {% csrf_token %}
            
             <label><h5>Select Date for Attendance: </h5></label>
              <input type="date" id="date" name="date" class="ml-3 " required>
+             <input type="submit" class="btn btn-sm btn-primary" value="View Attendance">
         </form>
+        {% if attendance %}
         <table id="myTable" class="table dt-responsive my-3" cellspacing="1" cellpadding="1" width="100%">
           <thead class="bg-success text-white text-center">
               <tr>
                   <th>Sr no.</th>
                   <th>Name</th>
                   <th>Email-id</th>
-                  <th>Present</th>
-                  <th>Absent</th>
+                  <th>Attendance</th>
                   <th>Action</th>
               </tr>
           </thead>
           <tbody>
-              {% for student in students %}
+              {% for att in attendance %}
               <tr>
                   <td>{{forloop.counter}}</td>
-                  <td>{{student.name}}</td>
-                  <td>{{student.user.email}}</td>
-                  <td class="text-center"><input type="radio" id="present" name="attendance" value="present"></td>
-                  <td class="text-center"><input type="radio" id="attendance" name="attendance" value="absent"></td>
-                  <td class="text-center"> <a onclick="attendId({{student.profile_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a></td>  
+                  <td>{{att.student.name}}</td>
+                  <td>{{att.student.user.email}}</td>
+
+                  {% if att.attend %}
+                  <td class="text-center bg-success text-white text-center p-2">Present</td>
+                  {% else %}
+                  <td class="text-center bg-danger text-white text-center p-2">Absent</td>
+                  {% endif %}
+                  <td class="text-center"> <a onclick="attendId({{att.student.profile_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a></td>  
                 </tr>
              {% endfor %}
           
            
           </tbody>
       </table>
+      {% endif %}
     
       </div>
-      {% else %}
-      <div class="card-body">
-          <h3>No Students Found</h3>
-      </div>
-      {% endif %}
+      
+      
   </div>
 </div>
 
@@ -175,7 +180,7 @@ $(document).ready(function () {
   
     function attendId(id){
      
-      document.getElementById('attend_id').action='/edit_attendance/'+id;
+      document.getElementById('attend_id').action='/edit_attendance';
     }
    
   </script> 
