@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block body %}
-<h1>Index.html</h1>
-
+<h1>Index.html {{user.email}}</h1>
+{% if user.is_active %}
+<a class="btn btn-lg btn-primary" href="{% url 'user_logout' %}">Logout</a>
+{% endif %}
 {% endblock %}

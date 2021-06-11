@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from .models import Student,Teacher,Librarian,User
 from .forms import CustomUserCreationForm
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 def home(request):
@@ -17,16 +18,27 @@ def user_login(request):
         if user is not None and user.is_active:
             # Login Successfull
             login(request, user)
-            return render(request, 'home.html', {})
+            return redirect('home')
         else:
             # Login Unsuccessfull , Show Same Page With Error
             return render(request, 'login.html', {'loginStatus':"Incorrect Credentials."})
     else:
         if request.user.is_authenticated:
             # If user is already logged in, send to home
-            return render(request, 'home.html', {})
+            return redirect('home')
         # Display Login Page
         return render(request, 'login.html', {})
+
+
+def user_logout(request):
+    print("logout method: " + str(request.user) + " : " + str(request.user.is_active))
+    if request.user is not None and request.user.is_active:
+        logout(request)
+        print("after logout user = " + str(request.user))
+        return render(request, 'logout.html', {})
+    else:
+        return redirect('user_login')
+
 
 
 ################  Student Views ############################
