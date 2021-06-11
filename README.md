@@ -18,4 +18,4 @@ python manage.py runserver
 ```
 
 To stop server:  
-## Ctrl + C
+#### Ctrl + C
