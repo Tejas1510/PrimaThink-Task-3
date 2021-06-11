@@ -1,23 +1,31 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from .models import Student, Teacher, Librarian, User, Event
-from .forms import CustomUserCreationForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_control
 # Create your views here.
 
+def user_validator(request):
+    if request.user is not None and request.user.is_active:
+        if request.user.admin_user:
+            return "ADMIN"
+        elif request.user.student_user:
+            return "STUDENT"
+        elif request.user.teacher_user:
+            return "TEACHER"
+        elif request.user.librarian_user:
+            return "LIBRARIAN"
+    return "ERROR"
 
 def home(request):
     return render(request, 'index.html', {})
-
 
 def user_login(request):
     if request.method == "POST":
         email = request.POST.get('email', '')
         password = request.POST.get('password', '')
         user = authenticate(email=email, password=password)
-        print('USER: ', str(user), "Email: ", email, "password: ", password)
         if user is not None and user.is_active:
             # Login Successfull
             login(request, user)
@@ -34,10 +42,8 @@ def user_login(request):
 
 
 def user_logout(request):
-    print("logout method: " + str(request.user) + " : " + str(request.user.is_active))
     if request.user is not None and request.user.is_active:
         logout(request)
-        print("after logout user = " + str(request.user))
         return render(request, 'logout.html', {})
     else:
         return redirect('user_login')
@@ -45,13 +51,19 @@ def user_logout(request):
 
 
 ################  Student Views ############################
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def view_students(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     students = Student.objects.all()
     return render(request, 'view_student.html', {'students': students})
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def add_students(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -74,15 +86,20 @@ def add_students(request):
     else:
         return render(request, 'add_student.html')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def delete_student(request, id):
-    students = Student.objects.all()
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     student = Student.objects.get(profile_id=id)
     student.user.delete()
     return redirect('view_students')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def edit_student(request, id):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     student = Student.objects.get(profile_id=id)
     student.name = request.POST.get('nameEdit')
     student.phone_number = request.POST.get('mobileEdit')
@@ -90,7 +107,6 @@ def edit_student(request, id):
     student.date_of_birth = request.POST.get('dobEdit')
     student.gender = request.POST.get('genderEdit')
     fee = request.POST.get('feeEdit')
-    print(str(request.POST))
     if fee.lower() == "paid":
         student.fees_paid = True
     else:
@@ -101,13 +117,19 @@ def edit_student(request, id):
 
 ################  Teacher Views ############################
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def view_teachers(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     teachers = Teacher.objects.all()
     return render(request, 'view_teacher.html', {'teachers': teachers})
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def add_teachers(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -128,14 +150,20 @@ def add_teachers(request):
     else:
         return render(request, 'add_teacher.html')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def delete_teacher(request, id):
-    teachers = Teacher.objects.all()
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     teacher = Student.objects.get(profile_id=id)
     teacher.user.delete()
     return redirect('view_teachers')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def edit_teacher(request, id):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     teacher = Teacher.objects.get(profile_id=id)
     teacher.name = request.POST.get('nameEdit')
     teacher.phone_number = request.POST.get('mobileEdit')
@@ -148,13 +176,19 @@ def edit_teacher(request, id):
 
 
 ################  librarian Views ############################
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def view_librarians(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     librarians = Librarian.objects.all()
     return render(request, 'view_librarian.html', {'librarians': librarians})
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def add_librarians(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -174,14 +208,20 @@ def add_librarians(request):
     else:
         return render(request, 'add_librarian.html')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def delete_librarian(request, id):
-    librarians = Librarian.objects.all()
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     librarian = Librarian.objects.get(profile_id=id)
     librarian.user.delete()
     return redirect('view_librarians')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def edit_librarian(request, id):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     librarian = Librarian.objects.get(profile_id=id)
     librarian.name = request.POST.get('nameEdit')
     librarian.phone_number = request.POST.get('mobileEdit')
@@ -193,10 +233,12 @@ def edit_librarian(request, id):
 
 
 ################ Event Views ############################
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def view_events(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     event = Event.objects.all()
-    blogposts = []
 
     paginator = Paginator(event, 3)
     page = request.GET.get('page')
@@ -209,8 +251,11 @@ def view_events(request):
         events = paginator.page(paginator.num_pages)
     return render(request, 'view_event.html', {'events': events})
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def add_events(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     if request.method == "POST":
         name = request.POST.get('name')
         description = request.POST.get('description')
@@ -226,14 +271,21 @@ def add_events(request):
     else:
         return render(request, 'add_event.html')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def delete_event(request, id):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     event = Event.objects.all()
     event = Event.objects.get(profile_id=id)
     event.user.delete()
     return redirect('view_events')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
 def edit_event(request, id):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     event = Event.objects.get(event_id=id)
     event.name = request.POST.get('nameEdit')
     event.description = request.POST.get('descriptionEdit')
