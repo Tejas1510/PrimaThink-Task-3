@@ -20,9 +20,6 @@ def user_validator(request):
     return "ERROR"
 
 
-def home(request):
-    return render(request, 'home.html', {})
-
 
 def user_login(request):
     if request.method == "POST":
@@ -50,8 +47,16 @@ def user_logout(request):
         return render(request, 'logout.html', {})
     else:
         return redirect('user_login')
+        
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
+def home(request):
+    student=Student.objects.all()
+    teacher=Teacher.objects.all()
+    event=Event.objects.all()
+    librarian=Librarian.objects.all()
 
-
+    return render(request, 'home.html', {'s':len(student),'t':len(teacher),'e':len(event),'l':len(librarian)})
 ################  Student Views ############################
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')

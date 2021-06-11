@@ -7,17 +7,11 @@
 
 {% block body %}
 <div class="row">
-  <div class="col-12 col-sm-4 mt-5">
-      <div class="card-counter primary">
-          <i class="fa fa-university"></i>
-          <span class="count-numbers">12</span>
-          <span class="count-name">Departments</span>
-        </div>
-  </div>
+  
   <div class="col-12 col-sm-4 mt-5">
       <div class="card-counter danger">
         <i class="fa fa-users"></i>
-        <span class="count-numbers">2000</span>
+        <span class="count-numbers">{{s}}</span>
         <span class="count-name">Students</span>
       </div>
     </div>
@@ -25,14 +19,21 @@
     <div class="col-12 col-sm-4 mt-5">
       <div class="card-counter success">
         <i class="fa fa-user"></i>
-        <span class="count-numbers">25</span>
+        <span class="count-numbers">{{t}}</span>
         <span class="count-name">Teachers</span>
       </div>
     </div>
     <div class="col-12 col-sm-4 mt-5">
+      <div class="card-counter primary">
+          <i class="fa fa-university"></i>
+          <span class="count-numbers">{{l}}</span>
+          <span class="count-name">Librarian</span>
+        </div>
+  </div>
+    <div class="col-12 col-sm-4 mt-5">
       <div class="card-counter info" style="background: linear-gradient(45deg,#FF5370,#ff869a)">
         <i class="fa fa-calendar"></i>
-        <span class="count-numbers">5</span>
+        <span class="count-numbers">{{e}}</span>
         <span class="count-name">Events</span>
       </div>
     </div>
