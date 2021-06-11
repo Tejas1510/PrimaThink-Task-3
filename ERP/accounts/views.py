@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 # Create your views here.
 
+
 def user_validator(request):
     if request.user is not None and request.user.is_active:
         if request.user.admin_user:
@@ -18,8 +19,10 @@ def user_validator(request):
             return "LIBRARIAN"
     return "ERROR"
 
+
 def home(request):
-    return render(request, 'index.html', {})
+    return render(request, 'home.html', {})
+
 
 def user_login(request):
     if request.method == "POST":
@@ -49,7 +52,6 @@ def user_logout(request):
         return redirect('user_login')
 
 
-
 ################  Student Views ############################
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -58,6 +60,7 @@ def view_students(request):
         return render(request, 'entry_restricted.html', {})
     students = Student.objects.all()
     return render(request, 'view_student.html', {'students': students})
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -86,6 +89,7 @@ def add_students(request):
     else:
         return render(request, 'add_student.html')
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def delete_student(request, id):
@@ -94,6 +98,7 @@ def delete_student(request, id):
     student = Student.objects.get(profile_id=id)
     student.user.delete()
     return redirect('view_students')
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -125,6 +130,7 @@ def view_teachers(request):
     teachers = Teacher.objects.all()
     return render(request, 'view_teacher.html', {'teachers': teachers})
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def add_teachers(request):
@@ -150,6 +156,7 @@ def add_teachers(request):
     else:
         return render(request, 'add_teacher.html')
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def delete_teacher(request, id):
@@ -158,6 +165,7 @@ def delete_teacher(request, id):
     teacher = Student.objects.get(profile_id=id)
     teacher.user.delete()
     return redirect('view_teachers')
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -184,6 +192,7 @@ def view_librarians(request):
     librarians = Librarian.objects.all()
     return render(request, 'view_librarian.html', {'librarians': librarians})
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def add_librarians(request):
@@ -208,6 +217,7 @@ def add_librarians(request):
     else:
         return render(request, 'add_librarian.html')
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def delete_librarian(request, id):
@@ -216,6 +226,7 @@ def delete_librarian(request, id):
     librarian = Librarian.objects.get(profile_id=id)
     librarian.user.delete()
     return redirect('view_librarians')
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -251,6 +262,7 @@ def view_events(request):
         events = paginator.page(paginator.num_pages)
     return render(request, 'view_event.html', {'events': events})
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def add_events(request):
@@ -263,13 +275,13 @@ def add_events(request):
         time = request.POST.get('time')
         image = request.POST.get('image')
         url = request.POST.get('url')
-
         event = Event(name=name, description=description,
                       date=date, time=time, image=image, url=url)
         event.save()
         return redirect('view_events')
     else:
         return render(request, 'add_event.html')
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -280,6 +292,7 @@ def delete_event(request, id):
     event = Event.objects.get(profile_id=id)
     event.user.delete()
     return redirect('view_events')
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
@@ -295,3 +308,36 @@ def edit_event(request, id):
     event.url = request.POST.get('urlEdit')
     event.save()
     return redirect('view_events')
+
+
+################ Timetable View ############################
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
+def view_timetable(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
+    return render(request, 'timetable.html', {})
+
+
+################  Attendance Views ############################
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
+def view_attendance(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
+    students = Student.objects.all()
+    return render(request, 'view_attendance.html', {'students': students})
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='user_login')
+def add_attendance(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
+    if request.method == "POST":
+        name = request.POST.get('name')
+        return redirect('view_attendance')
+    else:
+        students = Student.objects.all()
+        return render(request, 'add_attendance.html', {'students': students})

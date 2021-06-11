@@ -1,0 +1,188 @@
+
+{% extends 'admin_dashboard.html' %}
+
+
+{% block title %} {% endblock %}
+
+{% block head %}
+<link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<link href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css" rel="stylesheet" />
+<style>
+
+    .modal-header{
+        background: linear-gradient(to right, #373b44, #4286f4) !important;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="editModalLabel">Edit</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <form action="" method="POST" id="attend_id">
+      {% csrf_token %}
+      <div class="modal-body">
+        <input type="hidden" name="idEdit" id="idEdit">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
+                </div>
+               
+                <div class="form-group">
+                    <input type="email" class="form-control" id="emailEdit" name="emailEdit" >
+                </div>
+              
+                <label>Mark Attendance</label>
+                <div class="form-check form-check-inline mt-2 ml-4">
+                  <input class="form-check-input" type="radio" name="attendEdit" id="attendEdit" value="present">
+                  <label class="form-check-label" for="attendEdit" style="padding-left: 0px;">Present</label>
+                </div>
+                <div class="form-check form-check-inline ml-2">
+                  <input class="form-check-input" type="radio" name="attendEdit" id="attendEdit" value="absent">
+                  <label class="form-check-label" for="attendEdit" style="padding-left: 0px;">Absent</label>
+                </div><br>
+             
+                 
+      </div>
+      <div class="modal-footer d-block mr-auto">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+<div class="animated fadeIn">
+  <div class="card my-2">
+      <div class="card-header bg-primary text-white display-5 ">
+          <i class="fa fa-edit"></i> View Attendance
+      </div>
+      {% if students %}
+      <div class="card-body pl-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+           
+            <label><h5>Select Date for Attendance: </h5></label>
+             <input type="date" id="date" name="date" class="ml-3 " required>
+        </form>
+        <table id="myTable" class="table dt-responsive my-3" cellspacing="1" cellpadding="1" width="100%">
+          <thead class="bg-success text-white text-center">
+              <tr>
+                  <th>Sr no.</th>
+                  <th>Name</th>
+                  <th>Email-id</th>
+                  <th>Present</th>
+                  <th>Absent</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for student in students %}
+              <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{student.name}}</td>
+                  <td>{{student.user.email}}</td>
+                  <td class="text-center"><input type="radio" id="present" name="attendance" value="present"></td>
+                  <td class="text-center"><input type="radio" id="attendance" name="attendance" value="absent"></td>
+                  <td class="text-center"> <a onclick="attendId({{student.profile_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a></td>  
+                </tr>
+             {% endfor %}
+          
+           
+          </tbody>
+      </table>
+    
+      </div>
+      {% else %}
+      <div class="card-body">
+          <h3>No Students Found</h3>
+      </div>
+      {% endif %}
+  </div>
+</div>
+
+
+
+  
+ 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+crossorigin="anonymous"></script>
+
+
+<script src="https://datatables.net/download/build/nightly/jquery.dataTables.min.js?_=acea6f3829f8033855d883c25444fdf0"></script>
+<script src="https://cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+$(document).ready(function () {
+
+    $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function (e) {
+      //console.log( 'show tab' );
+        $($.fn.dataTable.tables(true)).DataTable()
+          .columns.adjust()
+          .responsive.recalc();
+    });
+ 
+
+    $("#myTable").dataTable({
+      "bAutoWidth": false
+    });
+   
+    setActiveTab();
+    $($.fn.dataTable.tables(true)).DataTable()
+          .columns.adjust()
+          .responsive.recalc();        
+});
+</script>
+
+
+<script>
+    edits = document.getElementsByClassName('edit');
+    Array.from(edits).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        tr = e.target.parentNode.parentNode.parentNode;
+        name = tr.getElementsByTagName("td")[1].innerText;
+        email = tr.getElementsByTagName("td")[2].innerText;
+        
+        nameEdit.value = name;
+        emailEdit.value = email;
+  
+        idEdit.value = e.target.parentNode.value;
+       
+        $('#editModal').modal('toggle');
+      })
+    })
+  
+    function attendId(id){
+     
+      document.getElementById('attend_id').action='/edit_attendance/'+id;
+    }
+   
+  </script> 
+      
+
+
+{% endblock %}
+
+{% block script_section %} 
+{% endblock %}

@@ -21,7 +21,7 @@
         <div class="row">
                 <div class="main col-12 col-sm-3" style="background-color: #222; ">
                   
-                    <div class="sidebar left pb-3">
+                    <div class="sidebar left pb-2" style="height: 100%; overflow-y:auto">
                       <div class="user-panel" style="text-align: center;">
                         <div class=" info ">
                           <h5 class="pb-2 text-center" style="text-align: center;">Admin Dashboard</h5>
@@ -29,7 +29,7 @@
                       </div>
                       <ul class="list-sidebar bg-defoult">
                         
-                        <li> <a href="{% url 'home' %}" data-toggle="collapse" data-target="#dashboard" class="collapsed active" > <i class="fa fa-th-large"></i> <span class="nav-label"> My Dashboard </span></a></li>                      
+                        <li> <a href="{% url 'home' %}"> <i class="fa fa-th-large"></i> <span class="nav-label"> My Dashboard </span></a> </li>
                         
                         <li> <a href="{% url 'user_logout' %}"> <i class="fa fa-sign-out"></i> <span class="nav-label"> Logout </span></a> </li>
                         <li> <a href="#" data-toggle="collapse" data-target="#teachers" class="collapsed active" > <i class="fa fa-bar-chart-o"></i> <span class="nav-label">Teacher</span> <span class="fa fa-chevron-down pull-right"></span> </a>
@@ -50,8 +50,13 @@
                             <li class="inner-list"><a href="{% url 'view_librarians' %}">View Librarian</a></li>
                         </ul>
                       </li>
-                    <li> <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Attendance</span></a> </li>
-                    <li> <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Time Table</span></a> </li>
+                      <li> <a href="#" data-toggle="collapse" data-target="#attendance" class="collapsed active" > <i class="fa fa-laptop"></i> <span class="nav-label">Attendance</span> <span class="fa fa-chevron-down pull-right"></span> </a>
+                        <ul class="sub-menu collapse" id="attendance">
+                            <li class="inner-list"><a href="{% url 'add_attendance' %}">Mark Attendance</a></li>
+                            <li class="inner-list"><a href="{% url 'view_attendance' %}">View Attendance</a></li>
+                        </ul>
+                      </li>
+                    <li> <a href="{% url 'view_timetable' %}"><i class="fa fa-book"></i> <span class="nav-label">Time Table</span></a> </li>
                     <li> <a href="#" data-toggle="collapse" data-target="#event" class="collapsed active" > <i class="fa fa-calendar"></i> <span class="nav-label">Events</span> <span class="fa fa-chevron-down pull-right"></span> </a>
                       <ul class="sub-menu collapse" id="event">
                           <li class="inner-list"><a href="{% url 'add_events' %}">Add Event</a></li>

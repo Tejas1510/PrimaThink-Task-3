@@ -1,7 +1,7 @@
 from . import views
 from django.urls import path
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('home', views.home, name="home"),
     path('login', views.user_login, name="user_login"),
     path('logout', views.user_logout, name="user_logout"),
 
@@ -28,5 +28,15 @@ urlpatterns = [
     path('add_events',views.add_events,name='add_events'),
     path('delete_event/<int:id>',views.delete_event,name='delete_event'),
     path('edit_event/<int:id>',views.edit_event,name='edit_event'),
+
+    # Timetable
+    path('view_timetable',views.view_timetable,name='view_timetable'),
+
+    # Attendance
+    path('view_attendance',views.view_attendance,name='view_attendance'),
+    path('add_attendance',views.add_attendance,name='add_attendance'),
+    # path('delete_event/<int:id>',views.delete_event,name='delete_event'),
+    # path('edit_event/<int:id>',views.edit_event,name='edit_event'),
+    
     
 ]
