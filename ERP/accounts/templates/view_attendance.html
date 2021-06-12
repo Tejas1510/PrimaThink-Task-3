@@ -38,11 +38,11 @@ aria-hidden="true">
                   <input type="date" class="form-control" id="dateEdit" value={{date}} name="dateEdit" readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
+                    <input type="text" class="form-control" id="nameEdit" name="nameEdit" readonly >
                 </div>
                
                 <div class="form-group">
-                    <input type="email" class="form-control" id="emailEdit" name="emailEdit" >
+                    <input type="email" class="form-control" id="emailEdit" name="emailEdit" readonly>
                 </div>
               
                 <label>Mark Attendance</label>
@@ -82,7 +82,7 @@ aria-hidden="true">
         </form>
         {% if attendance %}
         <table id="myTable" class="table dt-responsive my-3" cellspacing="1" cellpadding="1" width="100%">
-          <thead class="bg-success text-white text-center">
+          <thead class="bg-warning text-white text-center">
               <tr>
                   <th>Sr no.</th>
                   <th>Name</th>

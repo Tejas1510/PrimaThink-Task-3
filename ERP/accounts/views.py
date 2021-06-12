@@ -44,10 +44,19 @@ def user_login(request):
 def user_logout(request):
     if request.user is not None and request.user.is_active:
         logout(request)
-        return render(request, 'logout.html', {})
+        return redirect('index')
     else:
         return redirect('user_login')
-        
+
+def index(request):
+    if request.user is not None and request.user.is_active:
+        a=True
+        return render(request, 'index.html',{'log':a})
+    else:
+        return render(request, 'index.html')
+    
+
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def home(request):
