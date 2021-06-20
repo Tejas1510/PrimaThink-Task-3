@@ -35,23 +35,23 @@ aria-hidden="true">
       <div class="modal-body">
         <input type="hidden" name="idEdit" id="idEdit">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="nameEdit" name="nameEdit" >
+                  <input type="text" class="form-control" id="nameEdit" name="nameEdit" required >
               </div>
               <div class="form-group">
-                  <input type="email" class="form-control" id="emailEdit" name="emailEdit" >
+                  <input type="email" class="form-control" id="emailEdit" name="emailEdit" required >
               </div>
               <div class="form-group">
-                  <input type="tel" class="form-control" id="mobileEdit" name="mobileEdit" >
+                  <input type="tel" class="form-control" id="mobileEdit" name="mobileEdit" required >
               </div>
               <div class="form-group">
-                  <input type="text" class="form-control" id="addressEdit" name="addressEdit">
+                  <input type="text" class="form-control" id="addressEdit" name="addressEdit" required>
               </div>
               <label class="ml-2">DOB: </label>
               <div class="form-group">
-                <input type="date" class="form-control" id="dobEdit" name="dobEdit">
+                <input type="date" class="form-control" id="dobEdit" name="dobEdit" required>
               </div>
               <div class="form-group">
-                  <input type="text" class="form-control" id="salaryEdit" name="salaryEdit">
+                  <input type="text" class="form-control" id="salaryEdit" name="salaryEdit" required>
               </div> 
       </div>
       <div class="modal-footer d-block mr-auto">
@@ -94,7 +94,7 @@ aria-hidden="true">
                   <td>{{librarian.address}}</td>
                   <td>{{librarian.date_of_birth}}</td>
                   <td>{{librarian.salary}}</td>
-                  <td class="text-center"> <a onclick="librarianId({{librarian.profile_id}})" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_teacher/{{teacher.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
+                  <td class="text-center"> <a onclick="librarianId('{{librarian.profile_id}}')" class="edit" style="border:none;background-color:transparent;"><i class="fa fa-pencil text-primary fa-lg edit" aria-hidden="true"></i></a> <a href="/delete_teacher/{{teacher.profile_id}}" class="delete" style="border:none;background-color:transparent;"><i class="fa fa-trash text-danger ml-3 fa-lg" aria-hidden="true"></i></button>  </td>
                   </tr>
              {% endfor %}
           
