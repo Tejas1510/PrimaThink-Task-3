@@ -60,6 +60,8 @@ def index(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
 def home(request):
+    if user_validator(request) != "ADMIN":
+        return render(request, 'entry_restricted.html', {})
     student=Student.objects.all()
     teacher=Teacher.objects.all()
     event=Event.objects.all()

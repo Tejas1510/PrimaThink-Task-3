@@ -728,11 +728,7 @@ th {
   background-color: #fff;
   box-shadow: -21.213px 21.213px 30px 0px rgba(253, 170, 242, 0.3); }
 
-.navbar-light .navbar-toggler {
-  color: #fff;
-  border-color: #fff; }
-  .navbar-light .navbar-toggler:focus {
-    outline: 0px; }
+
 
 .default-header {
   position: absolute;
@@ -741,8 +737,7 @@ th {
   width: 100%;
   z-index: 9; }
 
-.navbar {
-  padding: 25px 15px; }
+
   @media (max-width: 992px) {
     .navbar .navbar-collapse {
       background: #222222;
@@ -814,10 +809,11 @@ th {
       margin-left: 15px; } }
 
 .header-scrolled {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   width: 100%;
-  background:rgb(219, 3, 248); }
+  /* background:pink; */
+}
 
 #search-input-box {
   position: fixed;
@@ -876,7 +872,7 @@ th {
   @media (min-width: 1921px) {
     .home-banner-area .fullscreen {
       align-items: start !important;
-      padding-top: 250px;
+      
       max-height: 1200px !important; } }
   @media (max-width: 768px) {
     .home-banner-area .fullscreen {
