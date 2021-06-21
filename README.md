@@ -1,4 +1,4 @@
-# PrimaThink-Task-3
+![PrimathinkTask](https://socialify.git.ci/Tejas1510/PrimaThink-Task-3/image?description=1&language=1&owner=1&theme=Dark)
 
 ## 📌 Motive of the Project
 
