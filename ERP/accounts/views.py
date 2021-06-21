@@ -178,7 +178,7 @@ def add_teachers(request):
 def delete_teacher(request, id):
     if user_validator(request) != "ADMIN":
         return render(request, 'entry_restricted.html', {})
-    teacher = Student.objects.get(profile_id=id)
+    teacher = Teacher.objects.get(profile_id=id)
     teacher.user.delete()
     return redirect('view_teachers')
 

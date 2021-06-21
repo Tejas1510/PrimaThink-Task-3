@@ -4,16 +4,25 @@
 {% block title %} {% endblock %}
 
 {% block head %}
+<style>
+    body{
+        background-image: linear-gradient(to right,rgb(127,50,253),rgb(174,54,229));
+    }
+    #login{
+        border-radius: 32px;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 
-<div class="container-fluid text-center" >
+<div class="container-fluid text-center my-5" >
 
-    <div class="container my-5 col-md-6 offset-md-3">
-        <div class="card">
-        <div class="card-body">
-        <h1 class="card-title text-center">Login</h1>
+    <div class="container my-5 col-md-6 offset-md-3" >
+        <div class="card p-1 p-sm-5 shadow" id="login">
+        <div class="card-body p-4">
+            <h1>Welcome to EmPower</h1>
+        <h1 class="card-title text-center text-primary">Login</h1>
         <form method="post">
             {% csrf_token %}
     

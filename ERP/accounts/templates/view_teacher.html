@@ -5,9 +5,11 @@
 {% block title %} {% endblock %}
 
 {% block head %}
+
 <link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css" rel="stylesheet" />
+
 <style>
     .modal-header{
         background: linear-gradient(to right, #373b44, #4286f4) !important;
@@ -73,7 +75,8 @@ aria-hidden="true">
       </div>
       {% if teachers %}
       <div class="card-body pl-5">
-        <table id="myTable" class="table table-responsive" cellspacing="1" width="100%">
+        <div class="table-responsive">
+           <table id="myTable" class="table dt-responsive" cellspacing="1" >
           <thead class="bg-success text-white text-center">
               <tr>
                   <th>Sr no.</th>
@@ -105,6 +108,8 @@ aria-hidden="true">
            
           </tbody>
       </table>
+    </div>
+
     
       </div>
       {% else %}
@@ -117,23 +122,14 @@ aria-hidden="true">
 
 
 
-  
- 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
 <script src="https://datatables.net/download/build/nightly/jquery.dataTables.min.js?_=acea6f3829f8033855d883c25444fdf0"></script>
 <script src="https://cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
 
 <script>
 $(document).ready(function () {
@@ -148,9 +144,9 @@ $(document).ready(function () {
 
     $("#myTable").dataTable({
       "bAutoWidth": false
+
     });
    
-    setActiveTab();
     $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust()
           .responsive.recalc();        
@@ -158,34 +154,37 @@ $(document).ready(function () {
 </script>
 
 <script>
-edits = document.getElementsByClassName('edit');
-Array.from(edits).forEach((element) => {
-element.addEventListener("click", (e) => {
-  tr = e.target.parentNode.parentNode.parentNode;
-  name = tr.getElementsByTagName("td")[1].innerText;
-  email = tr.getElementsByTagName("td")[2].innerText;
-  mobile = tr.getElementsByTagName("td")[3].innerText;
-  address = tr.getElementsByTagName("td")[4].innerText;
-  salary = tr.getElementsByTagName("td")[6].innerText;
-  qualification = tr.getElementsByTagName("td")[7].innerText;
-  dob = tr.getElementsByTagName("td")[5].innerText;
-  nameEdit.value = name;
-  emailEdit.value = email;
-  mobileEdit.value=mobile;
-  addressEdit.value=address;
-  salaryEdit.value=salary;
-  qualificationEdit.value=qualification;
-  dobEdit.value=dob;
-  idEdit.value = e.target.parentNode.value;
-  $('#editModal').modal('toggle');
-})
-})
+  edits = document.getElementsByClassName('edit');
+  Array.from(edits).forEach((element) => {
+  element.addEventListener("click", (e) => {
 
-function teacherId(id){
+    tr = e.target.parentNode.parentNode.parentNode;
+    name = tr.getElementsByTagName("td")[1].innerText;
+    email = tr.getElementsByTagName("td")[2].innerText;
+    mobile = tr.getElementsByTagName("td")[3].innerText;
+    address = tr.getElementsByTagName("td")[4].innerText;
+    salary = tr.getElementsByTagName("td")[6].innerText;
+    qualification = tr.getElementsByTagName("td")[7].innerText;
+    dob = tr.getElementsByTagName("td")[5].innerText;
+    nameEdit.value = name;
+    emailEdit.value = email;
+    mobileEdit.value=mobile;
+    addressEdit.value=address;
+    salaryEdit.value=salary;
+    qualificationEdit.value=qualification;
+    dobEdit.value=dob;
+    idEdit.value = e.target.parentNode.value;
+    $('#editModal').modal('toggle');
+  })
+  })
+  
+  function teacherId(id){
+     
+     document.getElementById('teacher_id').action='/edit_teacher/'+id;
+   }
+  
    
-   document.getElementById('teacher_id').action='/edit_teacher/'+id;
- }
-</script> 
+  </script> 
 
 
 {% endblock %}
