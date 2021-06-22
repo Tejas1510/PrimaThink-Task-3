@@ -1,5 +1,6 @@
 # PrimaThink-Task-3
 
+
 ## How to run project
 ```
 pip install django
