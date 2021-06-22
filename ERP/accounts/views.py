@@ -54,8 +54,27 @@ def index(request):
         return render(request, 'index.html',{'log':a})
     else:
         return render(request, 'index.html')
-    
 
+def team(request):
+    if request.user is not None and request.user.is_active:
+        a=True
+        return render(request, 'team.html',{'log':a})
+    else:
+        return render(request, 'team.html')
+
+def contact(request):
+    if request.user is not None and request.user.is_active:
+        a=True
+        return render(request, 'contact.html',{'log':a})
+    else:
+        return render(request, 'contact.html')
+
+def about(request):
+    if request.user is not None and request.user.is_active:
+        a=True
+        return render(request, 'about.html',{'log':a})
+    else:
+        return render(request, 'about.html')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='user_login')
