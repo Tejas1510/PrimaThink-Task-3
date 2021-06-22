@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    {% load static %}
+  <!-- Mobile Specific Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'img/fav1.png' %}" />
+  <!-- Author Meta -->
+  <meta name="author" content="colorlib" />
+  <!-- Meta Description -->
+  <meta name="description" content="" />
+  <!-- Meta Keyword -->
+  <meta name="keywords" content="" />
+  <!-- meta character set -->
+  <meta charset="UTF-8" />
+  <!-- Site Title -->
+  <title>EmPower</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto:400,400i,500,700" rel="stylesheet" />
+  <!--
+      CSS
+      =============================================
+    -->
+   <link rel="stylesheet" href="{% static 'css/contact.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'css/hexagons.min.css' %}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+</head>
+
+<body>
+  <!-- ================ Start Header Area ================= -->
+ 
+
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-image: linear-gradient(to right,rgb(127,50,253),rgb(174,54,229));">
+  <a class="navbar-brand" href="{% url 'index' %}"><h2 class="ml-3 text-white">Empower</h2></a>
+  <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+    
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'index' %}">Home</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'about' %}">About  Us</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'team' %}">Our  Team</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'contact' %}">Contact  Us</a></li>
+      {% if log %}
+      <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'home' %}">My Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'user_logout' %}">Logout</a></li>
+      {% else %}
+      <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'user_login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+    
+  </div>
+</nav>
+
+  <!-- ================ End Header Area ================= -->
+
+   <!-- Team Section -->
+
+   <div class="container-fluid offWhiteContainer">
+    <div class="row">
+      <div class="col-12 col-md-6 my-5 text-center px-5">
+        <h3>Let’s Start a Conversation</h3>
+        <div class="lead">
+          We’d love to hear from you. Here’s how you can reach us…
+        </div>
+        <div
+          class="card mt-3"
+          style="
+            border-radius: 25px;
+            border: 0;
+            color: white;
+            background-color: rgb(255, 186, 97);
+          "
+        >
+          <div class="card-body p-5">
+            <div class="mb-5 text-left contactBoxText row">
+              <div class="col-2">
+                <img src="{% static 'img/email.jpg' %}" height="50px" width="50px" />
+              </div>
+              <div class="col-10">
+                <div>Email</div>
+                <div>contact@primathink.com</div>
+              </div>
+            </div>
+            <div class="mb-5 text-left contactBoxText row">
+              <div class="col-2">
+                <img src="{% static 'img/phone.jpg' %}" height="50px" width="50px" />
+              </div>
+              <div class="col-10">
+                <div>Phone</div>
+                <div>9890544466</div>
+              </div>
+            </div>
+            <div class="mb-5 text-left contactBoxText row">
+              <div class="col-2">
+                <img
+                  src="{% static 'img/address.jpg' %}"
+                  height="50px"
+                  width="50px"
+                />
+              </div>
+              <div class="col-10">
+                <div>Address</div>
+                <div>
+                  C/O: Thakur, Chintamani Colony, Near Gajanan Maharaj Temple
+                  Shrihari Nagar, Arjun Nagar, Amravati (444602)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 my-5 px-5">
+        <div class="card" style="border-radius: 25px">
+          <div class="card-body">
+            <form class="p-3">
+              <div class="form-group mb-4">
+                <input
+                  type="text"
+                  class="form-control p-3"
+                  aria-describedby="emailHelp"
+                  placeholder="NAME"
+                />
+              </div>
+              <div class="form-group mb-4">
+                <input
+                  type="email"
+                  class="form-control p-3"
+                  aria-describedby="emailHelp"
+                  placeholder="EMAIL ADDRESS"
+                />
+              </div>
+              <div class="form-group mb-4">
+                <input
+                  type="phone"
+                  class="form-control p-3"
+                  aria-describedby="emailHelp"
+                  placeholder="PHONE NUMBER"
+                />
+              </div>
+              <div class="form-group mb-4">
+                <textarea class="form-control p-3" row="5">MESSAGE</textarea>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-dark btn-lg float-right mb-4"
+              >
+                SEND
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="contactDiv1 p-5">
+      <h2>Contact Our World Class Support Team</h2>
+      <p class="lead my-2">
+        Having queries or any questions, We are Full-Stack Digital
+        Transformation Company. Feel free to ask and let your all queries be
+        cleared with our support team. Give us a call and get all your
+        confusion to be cleared. So what are you thinking about now?
+      </p>
+    </div>
+    <div class="contactDiv2 p-5">
+      <h4 style="color: blue">contact@primathink.com</h4>
+      <h3 class="py-3">Call: 9890544466</h3>
+    </div>
+
+    <div class="container mb-5" style="clear: both">
+      <br />
+      <div class="gmap_canvas">
+        <iframe
+          loading="lazy"
+          width="1100"
+          height="500"
+          id="gmap_canvas"
+          src="https://maps.google.com/maps?q=Primathink&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+        ></iframe
+        ><a
+          href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"
+        ></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================ start footer Area ================= -->
+  <footer class="page-footer font-small blue bg-dark">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3 text-white">© 2021 Copyright:
+      <a href="#" class="text-white"> EmPower</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- ================ End footer Area ================= -->
+
+ 
+</body>
+
+</html>

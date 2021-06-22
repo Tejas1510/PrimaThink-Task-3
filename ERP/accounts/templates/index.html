@@ -49,8 +49,11 @@
     <ul class="navbar-nav ml-auto">
     
       <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'index' %}">Home</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'about' %}">About  Us</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'team' %}">Our  Team</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4" href="{% url 'contact' %}">Contact  Us</a></li>
       {% if log %}
-      <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'home' %}">My Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'home' %}">My  Dashboard</a></li>
       <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'user_logout' %}">Logout</a></li>
       {% else %}
       <li class="nav-item"><a class="nav-link text-white text-center h4 ml-2" href="{% url 'user_login' %}">Login</a></li>
