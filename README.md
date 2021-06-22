@@ -20,7 +20,7 @@ The app has the following features
 
 ## A sneak peek into what we have here🙈 :
 
-### Video Demonstration
+## [Video Demonstration](https://www.youtube.com/watch?v=IeKNQO2gIF0)
 
 <figure class="video_container">
   <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
