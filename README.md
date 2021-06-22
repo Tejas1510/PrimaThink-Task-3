@@ -20,6 +20,13 @@ The app has the following features
 
 ## A sneak peek into what we have here🙈 :
 
+## [Video Demonstration](https://www.youtube.com/watch?v=IeKNQO2gIF0)
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="https://github.com/Tejas1510/PrimaThink-Task-3/blob/main/PrimaThink%20Video%20with%20Thumbnail.mp4" type="video/mp4">
+  </video>
+</figure>
 
 ### HomePage of the website
 <p align="center"><img src="https://github.com/Tejas1510/PrimaThink-Task-3/blob/main/Images/screencapture-127-0-0-1-8000-2021-06-21-11_46_10.png" alt = "create memory"></p>
