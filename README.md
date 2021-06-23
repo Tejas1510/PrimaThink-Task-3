@@ -112,7 +112,6 @@ python manage.py runserver
 - [Vartika Gupta]()
 - [Pratik Gupta]()
 - [Swapnil Rathi]()
-- [Shreyas Nemani]()
 - [Ganesh Thakur]()
 
 
