@@ -160,3 +160,9 @@ class Attendance(models.Model):
 
     def __str__(self):
         return self.student.name
+
+class TimeTable(models.Model):
+    timetable_id=models.AutoField(primary_key=True)
+    timetable_image=models.FileField(upload_to = 'post_timetable',blank=True)
+    def __str__(self):
+        return str(self.timetable_id)

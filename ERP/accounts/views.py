@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from .models import Student, Teacher, Librarian, User, Event, Attendance
+from .models import Student, Teacher, Librarian, User, Event, Attendance,TimeTable
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
@@ -351,7 +351,15 @@ def edit_event(request, id):
 def view_timetable(request):
     if user_validator(request) != "ADMIN":
         return render(request, 'entry_restricted.html', {})
-    return render(request, 'timetable.html', {})
+    if request.method == "POST":
+        TimeTable.objects.all().delete()
+        timetable=request.FILES['pic']
+        tt = TimeTable(timetable_image=timetable)
+        tt.save()
+        return redirect('view_timetable')
+    else:
+        tt = TimeTable.objects.all()
+        return render(request, 'timetable.html', {'t_image':tt[0]})
 
 
 ################  Attendance Views ############################
